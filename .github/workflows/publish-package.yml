@@ -1,0 +1,64 @@
+name: Publish installer package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag, e.g. v1.1.2
+        required: true
+        type: string
+
+permissions: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Download verified release and publish installer bundle
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          set -euo pipefail
+          [[ "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]
+          VERSION="${RELEASE_TAG#v}"
+          OWNER="${GITHUB_REPOSITORY_OWNER,,}"
+          IMAGE="ghcr.io/$OWNER/netmaru"
+          mkdir package
+          gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --dir package \
+            --pattern NetMaru-arm64.dmg --pattern LICENSE --pattern PRIVACY.md \
+            --pattern THIRD_PARTY_NOTICES.md --pattern SHA256SUMS
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          root=Path('package')
+          records=[line.split() for line in (root/'SHA256SUMS').read_text().splitlines()]
+          matches=[parts[0] for parts in records if len(parts)==2 and parts[1]=='NetMaru-arm64.dmg']
+          assert len(matches)==1
+          assert hashlib.sha256((root/'NetMaru-arm64.dmg').read_bytes()).hexdigest()==matches[0]
+          print('Installer SHA-256 verified')
+          PY
+          cat > package/Dockerfile <<'EOF'
+          FROM scratch
+          LABEL org.opencontainers.image.title="NetMaru macOS installer bundle"
+          LABEL org.opencontainers.image.description="Installer files only. This is not a runnable Linux application."
+          LABEL org.opencontainers.image.source="https://github.com/kkt9102/NetMaru"
+          LABEL org.opencontainers.image.licenses="MIT"
+          COPY NetMaru-arm64.dmg LICENSE PRIVACY.md THIRD_PARTY_NOTICES.md SHA256SUMS /bundle/
+          EOF
+          docker build --label "org.opencontainers.image.version=$VERSION" \
+            --tag "$IMAGE:$VERSION" --tag "$IMAGE:latest" package
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$IMAGE:$VERSION"
+          docker push "$IMAGE:latest"
+          echo "Published $IMAGE:$VERSION"
+      - name: Remove runner registry credentials
+        if: always()
+        run: docker logout ghcr.io
