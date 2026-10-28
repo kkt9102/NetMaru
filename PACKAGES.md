@@ -2,11 +2,11 @@
 
 ## 일반 설치: Releases
 
-[최신 Release](https://github.com/kkt9102/NetMaru/releases/latest)에서 `NetMaru-arm64.dmg`를 받으세요. 최신 버전의 고정 다운로드 주소는 다음과 같습니다.
+[최신 Release](https://github.com/kkt9102/NetMaru/releases/latest)에서 `NetMaru-arm64.pkg`를 받아 실행하세요. 최신 버전의 고정 다운로드 주소는 다음과 같습니다.
 
-[NetMaru-arm64.dmg](https://github.com/kkt9102/NetMaru/releases/latest/download/NetMaru-arm64.dmg)
+[NetMaru-arm64.pkg](https://github.com/kkt9102/NetMaru/releases/latest/download/NetMaru-arm64.pkg)
 
-각 Release에는 DMG·ZIP·SHA256SUMS·MIT LICENSE·개인정보 및 외부 구성요소 고지가 함께 있습니다. GitHub Packages 계정 인증이나 Docker가 없어도 Release 설치파일을 받을 수 있습니다.
+각 Release에는 PKG·DMG·ZIP·SHA256SUMS·MIT LICENSE·개인정보 및 외부 구성요소 고지가 함께 있습니다. GitHub Packages 계정 인증이나 Docker가 없어도 Release 설치파일을 받을 수 있습니다.
 
 ## 고급 배포: GitHub Packages
 
@@ -21,9 +21,9 @@ Releases를 게시하면 `.github/workflows/publish-package.yml`이 Release 파�
 패키지 공개 후 Docker로 설치파일만 꺼내려면 컨테이너를 실행하지 않고 다음과 같이 복사할 수 있습니다.
 
 ```sh
-docker pull ghcr.io/kkt9102/netmaru:1.1.2
-docker create --name netmaru-installer ghcr.io/kkt9102/netmaru:1.1.2 /not-executed
-docker cp netmaru-installer:/bundle/NetMaru-arm64.dmg ./NetMaru-arm64.dmg
+docker pull ghcr.io/kkt9102/netmaru:1.1.3
+docker create --name netmaru-installer ghcr.io/kkt9102/netmaru:1.1.3 /not-executed
+docker cp netmaru-installer:/bundle/NetMaru-arm64.pkg ./NetMaru-arm64.pkg
 docker rm netmaru-installer
 ```
 

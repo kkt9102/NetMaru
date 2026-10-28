@@ -6,12 +6,14 @@
 
 ## 다운로드·설치
 
-**[최신 설치파일 다운로드 — Apple Silicon](https://github.com/kkt9102/NetMaru/releases/latest/download/NetMaru-arm64.dmg)**
+**[최신 설치파일 다운로드 — Apple Silicon](https://github.com/kkt9102/NetMaru/releases/latest/download/NetMaru-arm64.pkg)**
 
 [모든 Releases](https://github.com/kkt9102/NetMaru/releases) · [공개 Packages](https://github.com/users/kkt9102/packages/container/package/netmaru) · [Packages 사용법](PACKAGES.md) · [개인정보 처리 안내](PRIVACY.md) · [MIT License](LICENSE)
 
 - 지원 환경: Apple Silicon(M 시리즈), macOS 14 이상
-- DMG를 열고 `NetMaru.app`을 `Applications` 폴더로 드래그하세요.
+- `NetMaru-arm64.pkg`를 실행하고 설치를 진행하세요. 관리자 승인 후 `/Applications/NetMaru.app`에 설치합니다.
+- 기존 `/Applications/NetMaru.app`은 새 버전으로 교체하고 저장된 연결·설정·계산 기록은 유지합니다.
+- DMG 형식이 필요하면 DMG 안의 `NetMaru.pkg`를 실행해 같은 방식으로 설치합니다. ZIP은 수동 설치용 앱입니다.
 - 기존 NetMaru가 실행 중이라면 종료한 뒤 새 앱을 실행하세요.
 - 로컬 임시 서명된 개인용 배포본입니다. 개발자 인증서 서명과 Apple 공증은 되어 있지 않아 macOS가 실행을 제한할 수 있습니다.
 - Intel Mac, iPhone, iPad용 배포본은 제공하지 않습니다.
@@ -21,7 +23,7 @@
 각 Release의 `SHA256SUMS`와 다운로드한 설치파일의 값을 비교하세요. 저장소의 [SHA256SUMS](SHA256SUMS)는 `downloads/`에 보관한 버전별 파일용입니다.
 
 ```sh
-shasum -a 256 NetMaru-arm64.dmg
+shasum -a 256 NetMaru-arm64.pkg
 ```
 
 ## 주요 기능
@@ -43,7 +45,7 @@ shasum -a 256 NetMaru-arm64.dmg
 
 창의 닫기 버튼이나 ⌘W는 창만 닫습니다. 앱이 Dock에 남아 있다면 아이콘을 눌러 기본 창을 다시 열 수 있습니다. 앱의 **파일 → 넷마루 창 열기(⌘0)**로도 다시 열 수 있습니다. 설정 창만 열린 상태에서도 기본 창을 복원합니다. ⌘Q는 앱을 완전히 종료합니다.
 
-1.1.1 업데이트를 적용할 때는 실행 중인 이전 앱을 ⌘Q로 한 번 종료한 뒤 새 앱으로 교체하세요.
+업데이트 설치 시 실행 중인 앱은 먼저 종료해야 합니다. Installer가 종료를 안내하며, 앱을 강제로 종료하거나 다운로드만으로 자동 실행하지 않습니다. 다른 폴더에 있는 앱 복사본은 자동 삭제하지 않습니다.
 
 ## 실시간 그래프 사용
 
@@ -84,7 +86,8 @@ shasum -a 256 NetMaru-arm64.dmg
 - 실제 PTY 입력·출력, 로컬 TCP 배너, 임시 로컬 SSH 서버의 키 인증 및 SFTP 업로드·다운로드·삭제 확인.
 - 창 재열기 요청·설정 창 예외·반복 재열기·종료 정리 회귀 테스트 4개 통과. 실제 Dock 클릭을 통한 UI 조작은 미검증입니다.
 - 64비트 카운터·측정 간격·인터페이스 변경·핑 손실률 계산, 실제 macOS 카운터 조회 및 예시 데이터 그래프 렌더링 확인.
-- Apple Silicon Release 빌드, 로컬 코드 서명 및 DMG 무결성 확인.
+- 설치 보호 테스트 6개 추가 통과: 신규·기존·상위 버전·다른 앱·실행 중·설치 경로 검사. 실제 관리자 설치는 수행하지 않았습니다.
+- Apple Silicon Release 빌드, PKG 페이로드·설치 스크립트·로컬 코드 서명 및 DMG 무결성 확인.
 - 공개 배포 전 실행파일의 로컬 디버그 경로를 제거하고 재서명했습니다.
 - 실제 사용자 서버, 암호화된 키, 비밀번호 인증, 서버별 지표·알림·장치 깨우기 등은 추가 확인이 필요합니다. GUI 시각·조작 검증은 완료하지 않았습니다.
 
@@ -95,6 +98,13 @@ NetMaru의 독립 작성 코드와 문서는 **MIT License**입니다. 라이선
 [개인정보·라이선스 점검 결과](REVIEW.md)와 [외부 구성요소 고지](THIRD_PARTY_NOTICES.md)를 참고하세요. 자체 텔레메트리나 배포본의 개인키 포함 증거는 확인하지 않았지만, 법률·계약 전체의 준수 또는 취약점 부재를 보증하는 점검은 아닙니다.
 
 ## 버전
+
+### 1.1.3
+
+- PKG 설치파일을 추가했습니다. 새 설치파일을 실행하면 기존 `/Applications/NetMaru.app`을 교체합니다.
+- 앱 식별자와 설치 식별자를 유지해 후속 버전도 같은 앱으로 업데이트합니다.
+- 사용자 환경설정을 설치 페이로드에서 제외해 연결·키 경로·계산 기록을 보존합니다.
+- 실행 중인 앱의 종료 안내, 더 최신 빌드에 대한 다운그레이드 차단, 다른 앱·심볼릭 링크 보호를 추가했습니다.
 
 ### 1.1.2
 

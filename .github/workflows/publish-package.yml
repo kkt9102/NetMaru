@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Release tag, e.g. v1.1.2
+        description: Release tag, e.g. v1.1.3
         required: true
         type: string
 
@@ -33,16 +33,19 @@ jobs:
           IMAGE="ghcr.io/$OWNER/netmaru"
           mkdir package
           gh release download "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --dir package \
-            --pattern NetMaru-arm64.dmg --pattern LICENSE --pattern PRIVACY.md \
+            --pattern 'NetMaru-arm64.*' --pattern LICENSE --pattern PRIVACY.md \
             --pattern THIRD_PARTY_NOTICES.md --pattern SHA256SUMS
           python3 - <<'PY'
           from pathlib import Path
           import hashlib
           root=Path('package')
           records=[line.split() for line in (root/'SHA256SUMS').read_text().splitlines()]
-          matches=[parts[0] for parts in records if len(parts)==2 and parts[1]=='NetMaru-arm64.dmg']
-          assert len(matches)==1
-          assert hashlib.sha256((root/'NetMaru-arm64.dmg').read_bytes()).hexdigest()==matches[0]
+          installers=list(root.glob('NetMaru-arm64.*'))
+          assert installers
+          for artifact in installers:
+              matches=[parts[0] for parts in records if len(parts)==2 and parts[1]==artifact.name]
+              assert len(matches)==1
+              assert hashlib.sha256(artifact.read_bytes()).hexdigest()==matches[0]
           print('Installer SHA-256 verified')
           PY
           cat > package/Dockerfile <<'EOF'
@@ -51,7 +54,7 @@ jobs:
           LABEL org.opencontainers.image.description="Installer files only. This is not a runnable Linux application."
           LABEL org.opencontainers.image.source="https://github.com/kkt9102/NetMaru"
           LABEL org.opencontainers.image.licenses="MIT"
-          COPY NetMaru-arm64.dmg LICENSE PRIVACY.md THIRD_PARTY_NOTICES.md SHA256SUMS /bundle/
+          COPY NetMaru-arm64.* LICENSE PRIVACY.md THIRD_PARTY_NOTICES.md SHA256SUMS /bundle/
           EOF
           docker build --label "org.opencontainers.image.version=$VERSION" \
             --tag "$IMAGE:$VERSION" --tag "$IMAGE:latest" package
