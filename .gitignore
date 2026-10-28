@@ -1,0 +1,17 @@
+.codex/
+develop.md
+.DS_Store
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+known_hosts
+authorized_keys
+.build/
+*.app/
+*.dSYM/
+*.log
