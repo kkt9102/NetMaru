@@ -21,8 +21,8 @@ Releases를 게시하면 `.github/workflows/publish-package.yml`이 Release 파�
 패키지 공개 후 Docker로 설치파일만 꺼내려면 컨테이너를 실행하지 않고 다음과 같이 복사할 수 있습니다.
 
 ```sh
-docker pull ghcr.io/kkt9102/netmaru:1.1.3
-docker create --name netmaru-installer ghcr.io/kkt9102/netmaru:1.1.3 /not-executed
+docker pull ghcr.io/kkt9102/netmaru:1.1.4
+docker create --name netmaru-installer ghcr.io/kkt9102/netmaru:1.1.4 /not-executed
 docker cp netmaru-installer:/bundle/NetMaru-arm64.pkg ./NetMaru-arm64.pkg
 docker rm netmaru-installer
 ```
