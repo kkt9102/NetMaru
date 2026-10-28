@@ -8,7 +8,7 @@
 
 **[최신 설치파일 다운로드 — Apple Silicon](https://github.com/kkt9102/NetMaru/releases/latest/download/NetMaru-arm64.dmg)**
 
-[모든 Releases](https://github.com/kkt9102/NetMaru/releases) · [Packages 안내](PACKAGES.md) · [개인정보 처리 안내](PRIVACY.md) · [MIT License](LICENSE)
+[모든 Releases](https://github.com/kkt9102/NetMaru/releases) · [공개 Packages](https://github.com/users/kkt9102/packages/container/package/netmaru) · [Packages 사용법](PACKAGES.md) · [개인정보 처리 안내](PRIVACY.md) · [MIT License](LICENSE)
 
 - 지원 환경: Apple Silicon(M 시리즈), macOS 14 이상
 - DMG를 열고 `NetMaru.app`을 `Applications` 폴더로 드래그하세요.
