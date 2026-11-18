@@ -1,10 +1,23 @@
 # 넷마루 (NetMaru) (AI 딸깍)
 
-한국어로 사용하는 macOS 네트워크·서버 관리 도구입니다. SSH 연결, 파일 전송, 서브넷 계산과 네트워크 진단을 한곳에서 사용할 수 있습니다.
+한국어로 사용하는 macOS·Windows 네트워크 및 서버 관리 도구입니다. SSH 연결, 파일 전송, 서브넷 계산과 네트워크 진단을 한곳에서 사용할 수 있습니다.
 
 이 저장소는 **설치파일과 사용 안내만 제공**합니다. 소스코드와 개인 설정, SSH 키파일은 포함하지 않습니다.
 
 ## 다운로드·설치
+
+### Windows 11
+
+- [Windows x64 — Intel·AMD](https://github.com/kkt9102/NetMaru/releases/download/v1.1.4/NetMaru-1.1.4-windows-x64.zip)
+- [Windows ARM64 — Snapdragon·Windows ARM VM](https://github.com/kkt9102/NetMaru/releases/download/v1.1.4/NetMaru-1.1.4-windows-arm64.zip)
+
+ZIP을 풀고 `NetMaru-Setup-*.exe`를 실행하세요. 업데이트할 때는 실행 중인 넷마루를 종료한 후 새 설치파일을 실행합니다. 저장한 SSH 연결과 계산 기록은 유지됩니다. Windows 설치파일은 Authenticode 서명이 없습니다.
+
+Windows판은 실시간 트래픽·핑 그래프, 주소 계산, 네트워크 진단, 명령어 안내, 앱 정보 탭을 제공합니다. SSH·SFTP에는 Windows OpenSSH 클라이언트가 필요하며 파일 작업은 SFTP 콘솔에서 진행합니다. 아래 macOS 화면 안내와는 일부 조작 방식이 다릅니다.
+
+[Windows SHA-256 체크섬](https://github.com/kkt9102/NetMaru/releases/download/v1.1.4/SHA256SUMS-Windows)
+
+### macOS
 
 **[최신 설치파일 다운로드 — Apple Silicon](https://github.com/kkt9102/NetMaru/releases/latest/download/NetMaru-arm64.pkg)**
 
@@ -101,8 +114,9 @@ NetMaru의 독립 작성 코드와 문서는 **MIT License**입니다. 라이선
 
 ### 1.1.4
 
-- 설정에 일반·앱 정보 탭을 추가했습니다.
-- 설치된 앱의 버전·빌드 번호와 GitHub 리포지토리·최신 설치파일 링크를 확인할 수 있습니다.
+- Windows 11 x64·ARM64 첫 배포. 실시간 트래픽·핑 그래프, 서브넷 계산, 네트워크 진단, SSH·SFTP, 앱 정보 탭을 제공합니다.
+- Windows 설치파일로 기존 Windows판을 교체할 수 있으며 연결 설정과 계산 기록은 유지됩니다. 두 아키텍처 교차 빌드와 ZIP 무결성을 확인했습니다. Windows에서의 설치·화면 조작은 미검증입니다.
+- macOS 설정에 일반·앱 정보 탭을 추가했습니다. 설치된 앱의 버전·빌드 번호와 GitHub 리포지토리·최신 설치파일 링크를 확인할 수 있습니다.
 
 ### 1.1.3
 
