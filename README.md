@@ -8,14 +8,14 @@
 
 ### Windows 11
 
-- [Windows x64 — Intel·AMD](https://github.com/kkt9102/NetMaru/releases/download/v1.1.4/NetMaru-1.1.4-windows-x64.zip)
-- [Windows ARM64 — Snapdragon·Windows ARM VM](https://github.com/kkt9102/NetMaru/releases/download/v1.1.4/NetMaru-1.1.4-windows-arm64.zip)
+- [Windows 1.1.6 x64 — Intel·AMD](https://github.com/kkt9102/NetMaru/releases/download/v1.1.6-windows/NetMaru-1.1.6-windows-x64.zip)
+- [Windows 1.1.6 ARM64 — Snapdragon·Windows ARM VM](https://github.com/kkt9102/NetMaru/releases/download/v1.1.6-windows/NetMaru-1.1.6-windows-arm64.zip)
 
 ZIP을 풀고 `NetMaru-Setup-*.exe`를 실행하세요. 업데이트할 때는 실행 중인 넷마루를 종료한 후 새 설치파일을 실행합니다. 저장한 SSH 연결과 계산 기록은 유지됩니다. Windows 설치파일은 Authenticode 서명이 없습니다.
 
 Windows판은 실시간 트래픽·핑 그래프, 주소 계산, 네트워크 진단, 명령어 안내, 앱 정보 탭을 제공합니다. SSH·SFTP에는 Windows OpenSSH 클라이언트가 필요하며 파일 작업은 SFTP 콘솔에서 진행합니다. 아래 macOS 화면 안내와는 일부 조작 방식이 다릅니다.
 
-[Windows SHA-256 체크섬](https://github.com/kkt9102/NetMaru/releases/download/v1.1.4/SHA256SUMS-Windows)
+[Windows SHA-256 체크섬](https://github.com/kkt9102/NetMaru/releases/download/v1.1.6-windows/SHA256SUMS-Windows)
 
 ### macOS
 
@@ -111,6 +111,13 @@ NetMaru의 독립 작성 코드와 문서는 **MIT License**입니다. 라이선
 [개인정보·라이선스 점검 결과](REVIEW.md)와 [외부 구성요소 고지](THIRD_PARTY_NOTICES.md)를 참고하세요. 자체 텔레메트리나 배포본의 개인키 포함 증거는 확인하지 않았지만, 법률·계약 전체의 준수 또는 취약점 부재를 보증하는 점검은 아닙니다.
 
 ## 버전
+
+### 1.1.6 (Windows)
+
+- 맥용과 같은 그룹형 왼쪽 사이드바, 시작 화면 카드, 앱 아이콘을 적용했습니다.
+- 모니터 그래프를 카드형으로 정리하고 Windows의 밝은·어두운 테마를 적용합니다.
+- SSH·SFTP 연결이 실패하면 Enter를 누를 때까지 콘솔이 열려 있어 원본 오류를 확인할 수 있습니다. 앱에는 연결 상태와 종료 코드가 표시됩니다.
+- x64·ARM64 교차 빌드와 ZIP 무결성을 확인했습니다. 실제 Windows 화면과 SSH 접속은 미검증입니다.
 
 ### 1.1.4
 
